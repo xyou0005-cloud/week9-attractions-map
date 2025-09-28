@@ -30,7 +30,11 @@
     {
       "data": { "url": "data/attractions.csv" },
       "transform": [
-        { "filter": "typeFilter == 'All' || datum.tourism == typeFilter" }
+        { "filter": "typeFilter == 'All' || datum.tourism == typeFilter" },
+        {
+          "calculate": "isValid(datum.name) && datum.name != '' ? datum.name : 'Unnamed Attraction'",
+          "as": "display_name"
+        }
       ],
       "mark": { "type": "circle", "opacity": 0.55 },
       "encoding": {
@@ -44,7 +48,7 @@
           "scale": { "domain": ["viewpoint","attraction","museum","gallery","theme_park"] }
         },
         "tooltip": [
-          { "field": "name", "title": "Attraction Name" },
+          { "field": "display_name", "title": "Attraction Name" },
           { "field": "tourism", "title": "Category" },
           { "field": "@lat", "title": "Latitude" },
           { "field": "@lon", "title": "Longitude" }
