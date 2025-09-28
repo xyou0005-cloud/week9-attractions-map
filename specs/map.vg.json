@@ -12,7 +12,7 @@
       "bind": {
         "input": "select",
         "options": ["All","viewpoint","attraction","museum","gallery","theme_park"],
-        "labels":  ["All categories","Viewpoint","Attraction","Museum","Gallery","Theme Park"],
+        "labels": ["All categories","Viewpoint","Attraction","Museum","Gallery","Theme Park"],
         "name": "Attraction category: "
       }
     }
@@ -34,22 +34,26 @@
         {
           "calculate": "isValid(datum.name) && datum.name != '' ? datum.name : 'Unnamed Attraction'",
           "as": "display_name"
+        },
+        {
+          "calculate": "datum.tourism == 'theme_park' ? 'Theme Park' : datum.tourism == 'viewpoint' ? 'Viewpoint' : datum.tourism == 'attraction' ? 'Attraction' : datum.tourism == 'museum' ? 'Museum' : datum.tourism == 'gallery' ? 'Gallery' : datum.tourism",
+          "as": "tourism_label"
         }
       ],
       "mark": { "type": "circle", "opacity": 0.55 },
       "encoding": {
         "longitude": { "field": "@lon", "type": "quantitative" },
-        "latitude":  { "field": "@lat", "type": "quantitative" },
-        "size":      { "value": 10 },
-        "color":     {
-          "field": "tourism",
+        "latitude": { "field": "@lat", "type": "quantitative" },
+        "size": { "value": 10 },
+        "color": {
+          "field": "tourism_label",
           "type": "nominal",
           "title": "Attraction Category",
-          "scale": { "domain": ["viewpoint","attraction","museum","gallery","theme_park"] }
+          "scale": { "domain": ["Viewpoint","Attraction","Museum","Gallery","Theme Park"] }
         },
         "tooltip": [
           { "field": "display_name", "title": "Attraction Name" },
-          { "field": "tourism", "title": "Category" },
+          { "field": "tourism_label", "title": "Category" },
           { "field": "@lat", "title": "Latitude" },
           { "field": "@lon", "title": "Longitude" }
         ]
