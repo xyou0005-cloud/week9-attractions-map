@@ -1,0 +1,1 @@
+vegaEmbed("#map", "specs/map.vg.json").catch(console.error);
